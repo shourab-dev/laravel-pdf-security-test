@@ -26,9 +26,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/get-pdf', function () {
+Route::middleware('auth')->get('/get-pdf', function () {
     $fileName = 'my-pdf1.pdf';
     $path = Storage::path($fileName);
+    
     return response()->file($path,  [
         'Content-Type' => 'application/pdf',
         'Content-Disposition' => 'inline;'
